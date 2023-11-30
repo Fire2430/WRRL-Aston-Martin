@@ -1,0 +1,18 @@
+{
+  "name": "aston-martin-bot",
+  "version": "0.0.1",
+  "description": "Offical Bot for the WRRL Aston Martin F1 Team",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Fire2430",
+  "license": "ISC",
+  "dependencies": {
+    "@tfadev/easy-sqlite": "^1.1.0",
+    "colors": "^1.4.0",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1",
+    "horizon-handler": "^1.6.0"
+  }
+}
