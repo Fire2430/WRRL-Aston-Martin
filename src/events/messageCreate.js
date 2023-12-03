@@ -1,7 +1,7 @@
 const { EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder, roleMention } = require("discord.js");
 const { eventshandler, db, webhookClient } = require("..");
 const config = require("../config");
-const { time, permissionsCalculator } = require("../functions");
+const { time, permissionsCalculator } = require("./Misc");
 
 const set = new Set();
 

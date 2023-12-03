@@ -2,6 +2,7 @@ const { SQLiteDatabase } = require('@tfadev/easy-sqlite');
 const { CommandsHandler, EventsHandler } = require('horizon-handler');
 const { REST } = require("@discordjs/rest");
 const { Routes } = require('discord-api-types/v9');
+const fs = require('fs');
 const {
     Client,
     GatewayIntentBits,
@@ -72,44 +73,33 @@ client.login(config.client.token || process.env.CLIENT_TOKEN).catch((e) => {
     console.error('Unable to connect to the bot, this might be an invalid token or missing required intents!\n'.red, e);
 });
 
-const commandshandler = new CommandsHandler('./src/commands/', false);
+const commandshandler = new CommandsHandler('./src/commands/', true);
 const eventshandler = new EventsHandler('./src/events/', false);
 
-const rest = new REST({
-    version: '9'
-}).setToken(process.env.token);
+client.commands = new Collection();
+const functions = fs.readdirSync("./src/functions").filter(file => file.endsWith(".js"));
+const commandFolders = fs.readdirSync("./src/commands");
 
 (async () => {
-    try {
-        console.log('Started refreshing application (/) commands.');
-
-        await rest.put(
-            Routes.applicationCommands(process.env.clientid), {
-                body: client.commandArray
-            },
-        );
-        commandshandler.on('fileLoad', (command) => console.log('Loaded new command: ' + command.name));
-        eventshandler.on('fileLoad', (event) => console.log('Loaded new event: ' + event));
-
-        console.log('Successfully reloaded application (/) commands.');
-    } catch (error) {
-        console.error(error);
+    for (file of functions) {
+        require(`./functions/${file}`)(client);
     }
+    client.handleCommands(commandFolders, "./src/commands");
+    client.login(process.env.token)
 })();
-commandshandler.on('fileLoad', (command) => console.log('Loaded new command: ' + command.name));
+
+
+
 eventshandler.on('fileLoad', (event) => console.log('Loaded new event: ' + event));
 
 module.exports = {
     client,
     webhookClient,
     db,
-    commandshandler,
     eventshandler
 };
 
 (async () => {
-    await commandshandler.load();
-
     await eventshandler.load(client);
 })();
 

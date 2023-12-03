@@ -31,6 +31,10 @@ module.exports = (client) => {
                         body: client.commandArray
                     },
                 );
+                const commandFiles = fs.readdirSync(`${path}/${folder}`).filter(file => file.endsWith('.js'));
+                for (const file of commandFiles) {
+                    console.log('Command:', file)
+                };
 
                 console.log('Successfully reloaded application (/) commands.');
             } catch (error) {

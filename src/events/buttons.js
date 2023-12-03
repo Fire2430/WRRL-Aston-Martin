@@ -1,7 +1,7 @@
 const { EmbedBuilder, AttachmentBuilder } = require("discord.js");
 const { eventshandler, db, webhookClient } = require("..");
 const config = require("../config");
-const { time } = require("../functions");
+const { time } = require("./Misc");
 
 module.exports = new eventshandler.event({
     event: 'interactionCreate',

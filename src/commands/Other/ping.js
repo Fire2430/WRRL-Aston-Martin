@@ -1,10 +1,8 @@
 const { SlashCommandBuilder } = require("discord.js");
-const { commandshandler } = require("../index");
-const { CommandType } = require("horizon-handler");
 
-module.exports = new commandshandler.command({
-    type: CommandType.ChatInput,
-    structure: new SlashCommandBuilder()
+
+module.exports = {
+    data: new SlashCommandBuilder()
         .setName('ping')
         .setDescription('Replies with Pong!'),
     run: async (client, interaction) => {
@@ -14,4 +12,4 @@ module.exports = new commandshandler.command({
         });
 
     }
-});
+};

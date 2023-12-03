@@ -1,9 +1,8 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
-const { commandshandler, db } = require("../../index");
+const { db } = require("../../index");
 
-module.exports = new commandshandler.command({
-    type: 1,
-    structure: new SlashCommandBuilder()
+module.exports = {
+    data: new SlashCommandBuilder()
         .setName('modmail')
         .setDescription('ModMail manager.')
         .addSubcommand((sub) =>
@@ -90,4 +89,4 @@ module.exports = new commandshandler.command({
         };
 
     }
-});
+};
